@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ayşe için ✨</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg1: 255 243 248; /* soft pink */
+      --bg2: 229 245 255; /* soft blue */
+      --card: 255 255 255;
+      --ink: 34 40 49;
+      --accent: 255 173 200; /* rose */
+      --accent-2: 173 216 230; /* baby blue */
+      --accent-3: 197 255 216; /* mint */
+      --shadow: 18 22 33 / .12;
+    }
+
+    /* Theme toggle */
+    #theme:checked ~ .sky{
+      --bg1: 238 248 255; /* pale sky */
+      --bg2: 243 255 247; /* mint sky */
+      --accent: 255 214 165; /* apricot */
+      --accent-2: 186 201 255; /* periwinkle */
+      --accent-3: 255 233 240; /* blush */
+    }
+
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      font-family:"Poppins", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      color: rgb(var(--ink));
+      overflow-x:hidden;
+      background: radial-gradient(1200px 700px at 10% 10%, rgb(var(--bg1)), transparent 70%),
+                  radial-gradient(1200px 700px at 90% 90%, rgb(var(--bg2)), transparent 70%),
+                  linear-gradient(180deg, rgb(var(--bg1)), rgb(var(--bg2)) 60%);
+    }
+
+    .sky{
+      position:relative;
+      min-height:100dvh;
+      display:grid;
+      place-items:center;
+      padding: clamp(16px, 4vw, 40px);
+      transition: background 600ms ease;
+    }
+
+    .card{
+      position:relative;
+      width:min(820px, 92vw);
+      background: rgb(var(--card));
+      border-radius:24px;
+      padding: clamp(20px, 4vw, 36px);
+      box-shadow:0 20px 60px rgba(var(--shadow));
+      backdrop-filter: blur(4px);
+      z-index:5;
+      text-align:center;
+    }
+
+    .hello{
+      font-family:"Pacifico", cursive;
+      font-size: clamp(34px, 8vw, 62px);
+      line-height:1.1;
+      margin: 6px 0 10px;
+      letter-spacing:.5px;
+      background: linear-gradient(90deg, #ff7ab6, #7aa7ff, #7dffb0);
+      -webkit-background-clip:text;
+      background-clip:text;
+      color:transparent;
+    }
+
+    .subtitle{
+      font-weight:400;
+      font-size: clamp(14px, 2.6vw, 18px);
+      opacity:.8;
+      margin-bottom: 18px;
+    }
+
+    .pillbar{
+      display:flex;
+      gap:10px;
+      justify-content:center;
+      flex-wrap:wrap;
+      margin: 6px 0 20px;
+    }
+    .pill{
+      padding:.55rem 1rem;
+      border-radius:999px;
+      border:1px dashed rgba(0 0 0 / .08);
+      background: rgba(250 250 250 / .75);
+      font-size:.9rem;
+    }
+
+    .message{
+      font-size: clamp(16px, 2.8vw, 20px);
+      margin: 6px auto 14px;
+      max-width: 65ch;
+    }
+
+    details{
+      margin-top:8px;
+    }
+    summary{
+      list-style:none;
+      cursor:pointer;
+      display:inline-block;
+      padding:.7rem 1.1rem;
+      border-radius: 999px;
+      border: 2px solid rgba(0 0 0 / .08);
+      background: linear-gradient(180deg, rgba(var(--accent)/.25), rgba(255 255 255 / .8));
+      user-select:none;
+      font-weight:600;
+      transition: transform .2s ease;
+    }
+    summary:hover{ transform: translateY(-1px); }
+    details[open] summary{ opacity:.85; }
+
+    .wish{
+      margin-top:16px;
+      padding: 14px 16px;
+      border-radius:18px;
+      background: linear-gradient(180deg, rgba(var(--accent-2)/.18), rgba(255 255 255 / .8));
+      border: 1px solid rgba(0 0 0 / .06);
+    }
+
+    /* Toggle switch */
+    .toggle{
+      position: fixed;
+      top: 12px; right: 12px;
+      z-index: 50;
+      display:flex; align-items:center; gap:8px;
+      font-size:.9rem;
+      background: rgba(255 255 255 / .7);
+      border-radius: 999px;
+      padding:6px 10px;
+      border:1px solid rgba(0 0 0 / .08);
+      backdrop-filter: blur(6px);
+    }
+    .switch{
+      appearance: none;
+      width: 48px; height: 28px;
+      background: linear-gradient(180deg, rgba(var(--accent)/.6), rgba(var(--accent-2)/.6));
+      border-radius: 999px;
+      position: relative;
+      outline: none; cursor: pointer;
+      transition: filter .25s ease;
+      box-shadow: inset 0 0 0 2px rgba(0 0 0 / .08);
+    }
+    .switch:after{
+      content:"";
+      position:absolute; inset: 3px auto 3px 3px;
+      width: 22px; height: 22px;
+      background: white; border-radius: 50%;
+      box-shadow: 0 2px 6px rgba(0 0 0 / .15);
+      transition: transform .25s ease;
+    }
+    .switch:checked:after{ transform: translateX(20px); }
+
+    /* Floating hearts */
+    .hearts{
+      position:absolute; inset:0;
+      overflow:hidden; pointer-events:none;
+    }
+    .heart{
+      position:absolute;
+      width:22px; height:22px; transform: rotate(45deg);
+      background: rgba(var(--accent) / .9);
+      left: var(--x);
+      bottom:-30px;
+      border-radius:4px;
+      animation: floatUp var(--t) linear infinite;
+      filter: drop-shadow(0 4px 6px rgba(0 0 0 / .08));
+    }
+    .heart:before, .heart:after{
+      content:""; position:absolute; width:22px; height:22px; border-radius:50%; background: inherit;
+    }
+    .heart:before{ left:-11px; }
+    .heart:after{ top:-11px; }
+
+    @keyframes floatUp{
+      0%{ transform: translateY(0) rotate(45deg) scale(1); opacity:.95; }
+      60%{ opacity:.9; }
+      100%{ transform: translateY(-110vh) rotate(45deg) scale(1.15); opacity:0; }
+    }
+
+    /* Balloons */
+    .balloons{ position:absolute; inset:0; pointer-events:none; }
+    .balloon{
+      --size: 90px;
+      position:absolute; bottom:-120px; left: var(--x);
+      width: var(--size); height: calc(var(--size) * 1.25);
+      background: radial-gradient(120% 120% at 30% 20%, #fff8, transparent 45%),
+                  linear-gradient(180deg, rgba(var(--accent-3)/.9), rgba(var(--accent-2)/.85));
+      border-radius: 50% 50% 45% 45% / 60% 60% 40% 40%;
+      box-shadow: inset -8px -16px 24px rgba(0 0 0 / .05), 0 12px 30px rgba(0 0 0 / .08);
+      animation: rise var(--d) ease-in infinite;
+    }
+    .balloon:after{ /* string */
+      content:""; position:absolute; left:50%; top:100%; width:2px; height: 120px; background: rgba(0 0 0 / .15);
+      transform: translateX(-50%); border-radius:2px;
+    }
+    @keyframes rise{
+      0%{ transform: translateY(0) }
+      100%{ transform: translateY(-120vh) }
+    }
+
+    /* Footer */
+    .footer{
+      margin-top: 14px; font-size: .85rem; opacity:.7;
+    }
+    .footer a{ color: inherit; }
+    :root {
+  --bg1: 255 243 248; /* açık pembe */
+  --bg2: 229 245 255; /* açık mavi */
+  --card: 255 255 255;
+  --ink: 34 40 49;
+  --accent: 255 173 200; /* pembe */
+  --accent-2: 173 216 230; /* bebek mavisi */
+  --accent-3: 197 255 216; /* mint */
+  --shadow: 18 22 33 / .12;
+}
+
+/* BURAYI DEĞİŞTİR — temayı görünür şekilde farklılaştır */
+#theme:checked ~ .sky {
+  --bg1: 180 255 210; /* yeşilimsi */
+  --bg2: 255 230 180; /* sarımsı */
+  --accent: 200 150 255; /* morumsu */
+  --accent-2: 255 180 180; /* pembe */
+  --accent-3: 180 220 255; /* mavi */
+}
+  </style>
+</head>
+<body>
+  <!-- Theme toggle (no JS) -->
+  <label class="toggle" title="Temayı değiştir (pastel tonlar)">
+    <input id="theme" type="checkbox" class="switch" />
+    <span>Pastel Değiştir</span>
+  </label>
+
+  <main class="sky">
+    <!-- Decorative layers -->
+    <div class="hearts" aria-hidden="true">
+      <div class="heart" style="--x:8%; --t:14s"></div>
+      <div class="heart" style="--x:22%; --t:18s"></div>
+      <div class="heart" style="--x:35%; --t:16s"></div>
+      <div class="heart" style="--x:48%; --t:19s"></div>
+      <div class="heart" style="--x:59%; --t:17s"></div>
+      <div class="heart" style="--x:72%; --t:20s"></div>
+      <div class="heart" style="--x:85%; --t:15s"></div>
+    </div>
+
+    <div class="balloons" aria-hidden="true">
+      <div class="balloon" style="--x:12%; --d:17s; --size: 86px"></div>
+      <div class="balloon" style="--x:28%; --d:20s; --size: 96px"></div>
+      <div class="balloon" style="--x:46%; --d:22s; --size: 84px"></div>
+      <div class="balloon" style="--x:64%; --d:19s; --size: 100px"></div>
+      <div class="balloon" style="--x:80%; --d:23s; --size: 88px"></div>
+    </div>
+
+    <!-- Content card -->
+    <section class="card" role="region" aria-label="Ayşe için mesaj">
+      <div class="pillbar" aria-hidden="true">
+        <span class="pill">🎈 Balonlar</span>
+        <span class="pill">✨ Işıl ışıl</span>
+        <span class="pill">💖 Sevgi dolu</span>
+      </div>
+
+      <h1 class="hello">Merhaba Ayşe! 🌸</h1>
+      <p class="subtitle">Sen gökyüzündeki en parlak yıldızsın ✨</p>
+
+      <p class="message">
+        Bu minik sayfa <strong>senin için</strong> hazırlandı. Renklerle oyna, balonlara bak,
+        kalplerin nasıl uçtuğunu izle. Umarım yüzüne kocaman bir gülümseme getirir! 😊
+      </p>
+
+      <details>
+        <summary>💌 Küçük bir notu aç</summary>
+        <div class="wish">
+          Sevgili <strong>Ayşe</strong>,
+          <br />
+          Her günün; kahkaha, oyun ve merakla dolu olsun. Hayallerinin peşinden koşarken biz de hep yanında olacağız. 💫
+        </div>
+      </details>
+
+      <p class="footer">Hazırlayan: <em>Bilinmeyen biri😊</em> • <a href="#" aria-disabled="true">Sadece sevgi içerir 💗</a></p>
+    </section>
+  </main>
+</body>
+</html>
